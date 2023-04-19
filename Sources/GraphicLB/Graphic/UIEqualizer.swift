@@ -42,6 +42,10 @@ public extension UIEqualizerModel{
         return true
     }
     
+    func getValues() -> [CGPoint]{
+        return self.values
+    }
+    
 }
 
 
@@ -115,7 +119,7 @@ public class UIEqualizer: UIView{
             
             for horizontalIndex in 0...indicatorsInRow - 1 {
 
-                let model = equalizerModel.values[horizontalIndex]
+                let model = equalizerModel.getValues()[horizontalIndex]
                 let value: Int = Int(model.y)
 
                 if(index <= value){

@@ -15,10 +15,9 @@ public struct UIEqualizerModel{
     var values: [CGPoint]
 }
 
-extension UIEqualizerModel{
+public extension UIEqualizerModel{
     
-    
-    static func Mock() -> UIEqualizerModel{
+    static func random() -> UIEqualizerModel{
         
         let indicatorsInRow = 7
         let indicatorsInColumt = 12
@@ -61,7 +60,7 @@ public class UIEqualizer: UIView{
     
     private let indicatorsInColumt = 12
     
-    private var equalizerModel: UIEqualizerModel = UIEqualizerModel.Mock()
+    private var equalizerModel: UIEqualizerModel = UIEqualizerModel.random()
     
     private var timer: Timer? = nil
     

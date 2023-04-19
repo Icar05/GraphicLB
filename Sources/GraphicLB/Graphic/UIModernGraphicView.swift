@@ -217,7 +217,7 @@ public final class UIModernGraphicView: UIView, UIGraphic {
         self.calculateDataSourceValues()
     }
     
-    public func pushValue(index: Int, value: Int) throws {
+    public func pushValue(value: Int) throws {
         
         if(CGFloat(value) > maxDataSourceValue){
             throw RuntimeError("wrong value: \(value) -> max: \(maxDataSourceValue)")

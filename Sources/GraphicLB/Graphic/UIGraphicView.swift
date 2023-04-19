@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol UIGraphic{
-    func pushValue(index: Int, value: Int) throws
+    func pushValue(value: Int) throws
     func setupWithArray(values: [Int]) throws
     func getUIView() -> UIView
     var onValueChanged: (() -> Void )? { get set }
@@ -153,7 +153,7 @@ public final class UIGraphicView: UIView, UIGraphic {
         return [1,4,2,4,3,4,4,6,5,7,6,8,7,8,8,7,9,10]
     }
     
-    public func pushValue(index: Int, value: Int) throws {
+    public func pushValue(value: Int) throws {
         
         
         if(value < 1){

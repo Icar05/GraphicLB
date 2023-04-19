@@ -304,17 +304,26 @@ public final class UIDoubleGraphic: UIView, UIGraphic {
     }
     
     
-    public func pushValue(index: Int, value: Int) throws {
-        
-//        if(CGFloat(value) > datasource[index].getMaxValue()){
-//            throw RuntimeError("wrong value: \(value) -> max: \(datasource[index].getMaxValue())")
-//        }
+    public func pushValue(value: Int) throws {
         
         if(value < 1){
             throw RuntimeError("too small value")
         }
         
-        self.datasource[index].values.push(value)
+        if(datasource.isEmpty){
+            return
+        }
+        
+        self.datasource[0].values.push(value)
+    }
+    
+    public func pushValue(grapicIndex: Int, value: Int) throws {
+        
+        if(value < 1){
+            throw RuntimeError("too small value")
+        }
+        
+        self.datasource[grapicIndex].values.push(value)
     }
     
     public func update(){

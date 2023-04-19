@@ -263,7 +263,7 @@ public final class UIDoubleColorGraphic: UIView, UIGraphic {
     }
     
     
-    public func pushValue(index: Int, value: Int) throws {
+    public func pushValue(value: Int) throws {
         
         if(CGFloat(value) > maxDataSourceValue){
             throw RuntimeError("wrong value: \(value) -> max: \(maxDataSourceValue)")

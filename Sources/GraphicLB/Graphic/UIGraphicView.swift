@@ -46,7 +46,9 @@ public final class UIGraphicView: UIView, UIGraphic {
     
     private var startPointY: CGFloat = 0
     
-    private var stepInPixel: CGFloat = 0
+    private var stepInPixelX: CGFloat = 0
+    
+    private var stepInPixelY: CGFloat = 0
     
     private var datasource: Queue<Int> = Queue()
     
@@ -84,7 +86,14 @@ public final class UIGraphicView: UIView, UIGraphic {
         self.datasource.setup(values)
         
         self.startPointY  = sizeOfView / 2
-        self.stepInPixel  =  sizeOfView / CGFloat(datasource.count())
+        self.recalculateValues()
+    }
+    
+    
+    private func recalculateValues(){
+        let maxDataSourceValue = CGFloat(self.datasource.getElements().max()!)
+        self.stepInPixelX  =  sizeOfView / CGFloat(datasource.count())
+        self.stepInPixelY = sizeOfView / CGFloat(maxDataSourceValue)
     }
     
     public override func layoutSubviews() {
@@ -122,15 +131,15 @@ public final class UIGraphicView: UIView, UIGraphic {
     private func drawGraphic(){
             
         startPointX = 0
-        startPointY = calculateStepHeight(value: datasource.getElement(index: 0))
+        startPointY =  CGFloat(datasource.getElement(index: 0)) * stepInPixelY
         graphicColor.setStroke()
         
         for i: Int in datasource.getElements() {
             
             graphicPath.move(to: CGPoint(x:startPointX, y:startPointY))
             
-            startPointX = startPointX + stepInPixel
-            startPointY = calculateStepHeight(value: i)
+            startPointX = startPointX + stepInPixelX
+            startPointY = CGFloat(i) * stepInPixelY
             
             graphicPath.addLine(to: CGPoint(x: startPointX, y:startPointY))
             graphicPath.stroke()
@@ -139,11 +148,6 @@ public final class UIGraphicView: UIView, UIGraphic {
         
         graphicPath.close()
     }
-    
-    private func calculateStepHeight(value: Int) -> CGFloat{
-        return CGFloat(value) * stepInPixel
-    }
-    
     
     private func createEmptyValues(count: Int) -> [Int]{
         return [1,4,2,4,3,4,4,6,5,7,6,8,7,8,8,7,9,10]
@@ -157,6 +161,7 @@ public final class UIGraphicView: UIView, UIGraphic {
         }
         
         self.datasource.push(value)
+        self.recalculateValues()
         self.layer.sublayers = nil
         self.graphicPath = UIBezierPath()
         self.setNeedsDisplay()
@@ -170,6 +175,7 @@ public final class UIGraphicView: UIView, UIGraphic {
         }
         
         self.datasource.setup(values)
+        self.recalculateValues()
         self.layer.sublayers = nil
         self.graphicPath = UIBezierPath()
         self.setNeedsDisplay()

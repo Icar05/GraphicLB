@@ -11,7 +11,7 @@ import UIKit
 import CoreGraphics
 
 
-struct UIEqualizerModel{
+public struct UIEqualizerModel{
     var values: [CGPoint]
 }
 
@@ -47,7 +47,7 @@ extension UIEqualizerModel{
 
 
 @IBDesignable
-class UIEqualizer: UIView{
+public class UIEqualizer: UIView{
     
     
     
@@ -68,7 +68,7 @@ class UIEqualizer: UIView{
     private var isRunningAnimation = false
     
     
-    override func prepareForInterfaceBuilder(){
+    public override func prepareForInterfaceBuilder(){
         super.prepareForInterfaceBuilder()
         setup()
     }
@@ -93,7 +93,7 @@ class UIEqualizer: UIView{
     }
     
     
-    override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         self.drawIndicators()
     }
     

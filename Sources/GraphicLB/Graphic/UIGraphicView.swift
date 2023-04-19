@@ -10,7 +10,7 @@ import UIKit
 
 public protocol UIGraphic{
     func pushValue(index: Int, value: Int) throws
-    func setupWithArray(index: Int, values: [Int]) throws
+    func setupWithArray(values: [Int]) throws
     func getUIView() -> UIView
     var onValueChanged: (() -> Void )? { get set }
 }
@@ -169,7 +169,7 @@ public final class UIGraphicView: UIView, UIGraphic {
     }
     
     
-    public func setupWithArray(index: Int, values: [Int]) throws {
+    public func setupWithArray(values: [Int]) throws {
         if(values.count > defaultDataSourceCount){
             throw RuntimeError("too many start elements")
         }

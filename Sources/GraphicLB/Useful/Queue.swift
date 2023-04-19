@@ -14,6 +14,12 @@ public struct Queue<T> {
     
     private var elements: [T] = []
     
+    public init(){}
+    
+    public init(_ elements: [T]){
+        self.elements = elements
+    }
+    
     public mutating func enqueue(_ value: T) {
         elements.append(value)
     }

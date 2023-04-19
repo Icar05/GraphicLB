@@ -11,22 +11,23 @@ import UIKit
 public struct UIDoubleGraphicModel{
     public let positivewColor: UIColor
     public let negativeColor: UIColor
-    public var datasource: Queue<Int> = Queue()
+    public var values: Queue<Int> = Queue()
     
     
-    public init(positivewColor: UIColor, negativeColor: UIColor) {
+    public init(positivewColor: UIColor, negativeColor: UIColor, values: Queue<Int>) {
         self.positivewColor = positivewColor
         self.negativeColor = negativeColor
+        self.values = values
     }
     
 }
 public extension UIDoubleGraphicModel {
     mutating func getMaxValue() -> CGFloat{
-        return  CGFloat(datasource.getElements().max()!)
+        return  CGFloat(values.getElements().max()!)
     }
     
     mutating func getValues() -> [Int]{
-        return  datasource.getElements()
+        return values.getElements()
     }
 }
 
@@ -106,18 +107,18 @@ public final class UIDoubleGraphic: UIView, UIGraphic {
     
     
     private func setupDefaultData(){
-        let values = [1,4,2,4,3,4,4,6,5,7,6,8,7,8,8,7,9,10]
-        var datasource = Queue<Int>()
-            datasource.setup(values)
-        
-        var model = UIDoubleGraphicModel(
-            positivewColor: positiveColor,
-            negativeColor: negativeColor
-        )
-        
-        model.datasource = datasource
-        
-        self.datasource.append(model)
+        self.datasource.append(contentsOf: [
+            UIDoubleGraphicModel(
+                positivewColor: positiveColor,
+                negativeColor: negativeColor,
+                values: Queue([1,4,2,4,3,4,4,6,5,7,6,8,7,8,8,7,9,10])
+            ),
+            UIDoubleGraphicModel(
+                positivewColor: UIColor.green,
+                negativeColor: UIColor.yellow,
+                values: Queue([10,9,7,8,4,3,5,3,1,9,8,9,8,8,9,7,8,10])
+            ),
+        ])
     }
     
     public override func draw(_ rect: CGRect) {
@@ -141,7 +142,7 @@ public final class UIDoubleGraphic: UIView, UIGraphic {
     
     private func drawGraphic(model: inout UIDoubleGraphicModel){
         
-        let array: [Int] = model.datasource.getElements()
+        let array: [Int] = model.values.getElements()
         
         let horizontalOffset = CGFloat(sizeOfView) / CGFloat(array.count)
         let verticalOffset = CGFloat(sizeOfView) / CGFloat(array.max()!)
@@ -313,7 +314,7 @@ public final class UIDoubleGraphic: UIView, UIGraphic {
             throw RuntimeError("too small value")
         }
         
-        self.datasource[index].datasource.push(value)
+        self.datasource[index].values.push(value)
     }
     
     public func update(){
@@ -324,9 +325,9 @@ public final class UIDoubleGraphic: UIView, UIGraphic {
     }
     
     
-    public func setupWithArray(index: Int, model: inout UIDoubleGraphicModel) throws{
+    public func setupWithArray(model: inout UIDoubleGraphicModel) throws{
         
-        if(model.datasource.getElements().count > defaultDataSourceCount){
+        if(model.values.getElements().count > defaultDataSourceCount){
             throw RuntimeError("too many start elements")
         }
         
@@ -336,14 +337,19 @@ public final class UIDoubleGraphic: UIView, UIGraphic {
         self.setNeedsDisplay()
     }
     
-    public func setupWithArray(index: Int, values: [Int]) throws {
+    public func setupWithArray(values: [Int]) throws {
         
         if(values.count > defaultDataSourceCount){
             throw RuntimeError("too many start elements")
         }
         
-        self.datasource[index] = UIDoubleGraphicModel(positivewColor: positiveColor, negativeColor: negativeColor)
-        self.datasource[index].datasource.setup(values)
+        self.datasource = [
+            UIDoubleGraphicModel(
+                positivewColor: positiveColor,
+                negativeColor: negativeColor,
+                values: Queue(values)
+            )
+        ]
         self.layer.sublayers = nil
         self.graphicPath = UIBezierPath()
         self.setNeedsDisplay()

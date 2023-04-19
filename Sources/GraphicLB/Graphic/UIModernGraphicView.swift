@@ -235,7 +235,7 @@ public final class UIModernGraphicView: UIView, UIGraphic {
     }
     
     
-    public func setupWithArray(index: Int, values: [Int]) throws {
+    public func setupWithArray(values: [Int]) throws {
         
         if(values.count > defaultDataSourceCount){
             throw RuntimeError("too many start elements")

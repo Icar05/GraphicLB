@@ -315,6 +315,7 @@ public final class UIDoubleGraphic: UIView, UIGraphic {
         }
         
         self.datasource[0].values.push(value)
+        self.update()
     }
     
     public func pushValue(grapicIndex: Int, value: Int) throws {
@@ -324,6 +325,7 @@ public final class UIDoubleGraphic: UIView, UIGraphic {
         }
         
         self.datasource[grapicIndex].values.push(value)
+        self.update()
     }
     
     public func update(){

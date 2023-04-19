@@ -79,9 +79,13 @@ public class UIEqualizer: UIView{
         setup()
     }
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setup()
+    }
+    
+    public init(_ width: CGFloat, _ height: CGFloat){
+        super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
         setup()
     }
     
@@ -111,17 +115,17 @@ public class UIEqualizer: UIView{
             let color = calculateColor(index: index)
             
             for horizontalIndex in 0...indicatorsInRow - 1 {
-                
+
                 let model = model?.values[horizontalIndex]
                 let value: Int = Int(model!.y)
-                
+
                 if(index <= value){
                     self.drawRectangle(x: xStart, y: yStart, size: indicatorSize, color: color)
                 }
-                
+
                 xStart += (CGFloat(padding) + indicatorSize.width)
             }
-            
+
             xStart = CGFloat(padding)
             yStart -= (CGFloat(padding / 2) +  indicatorSize.height)
         }

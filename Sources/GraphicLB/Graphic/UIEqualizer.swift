@@ -61,7 +61,7 @@ public class UIEqualizer: UIView{
     
     private let indicatorsInColumt = 12
     
-    private var model: UIEqualizerModel? = nil
+    private var equalizerModel: UIEqualizerModel = UIEqualizerModel.Mock()
     
     private var timer: Timer? = nil
     
@@ -91,7 +91,7 @@ public class UIEqualizer: UIView{
     
     
     func setup(){
-        self.model = prepareBaseModel()
+        self.equalizerModel = prepareBaseModel()
         self.drawBackgroundColor(size: self.bounds.size)
         self.border()
     }
@@ -116,8 +116,8 @@ public class UIEqualizer: UIView{
             
             for horizontalIndex in 0...indicatorsInRow - 1 {
 
-                let model = model?.values[horizontalIndex]
-                let value: Int = Int(model!.y)
+                let model = equalizerModel.values[horizontalIndex]
+                let value: Int = Int(model.y)
 
                 if(index <= value){
                     self.drawRectangle(x: xStart, y: yStart, size: indicatorSize, color: color)
@@ -161,7 +161,7 @@ public class UIEqualizer: UIView{
     }
     
     public func drawDiagramm(model: UIEqualizerModel){
-        self.model = model
+        self.equalizerModel = model
         self.setNeedsDisplay()
     }
     
@@ -170,7 +170,7 @@ public class UIEqualizer: UIView{
         
         var models: [UIEqualizerModel] = []
         
-        var currentModel = model!
+        var currentModel = equalizerModel
         
         
         for _ in 0...indicatorsInColumt - 1{

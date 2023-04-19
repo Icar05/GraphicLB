@@ -12,7 +12,7 @@ import UIKit
 
 
 @IBDesignable
-public final class UISmartGraphicView: UIView, UIGraphic {
+public final class UIModernGraphicView: UIView, UIGraphic {
     
     
     

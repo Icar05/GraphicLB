@@ -10,7 +10,7 @@ import UIKit
 
 
 @IBDesignable
-public final class UITestGraphic: UIView, UIGraphic {
+public final class UIDoubleColorGraphic: UIView, UIGraphic {
     
     
     

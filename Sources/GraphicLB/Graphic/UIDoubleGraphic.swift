@@ -8,7 +8,7 @@
 
 import UIKit
 
-public struct UITestMultipleModel{
+public struct UIDoubleGraphicModel{
     public let positivewColor: UIColor
     public let negativeColor: UIColor
     public var datasource: Queue<Int> = Queue()
@@ -20,7 +20,7 @@ public struct UITestMultipleModel{
     }
     
 }
-public extension UITestMultipleModel {
+public extension UIDoubleGraphicModel {
     mutating func getMaxValue() -> CGFloat{
         return  CGFloat(datasource.getElements().max()!)
     }
@@ -31,7 +31,7 @@ public extension UITestMultipleModel {
 }
 
 @IBDesignable
-public final class UITestMultiple: UIView, UIGraphic {
+public final class UIDoubleGraphic: UIView, UIGraphic {
     
     
     
@@ -62,7 +62,7 @@ public final class UITestMultiple: UIView, UIGraphic {
     
     private var _guidesCount = 4
     
-    private var datasource: [UITestMultipleModel] = []
+    private var datasource: [UIDoubleGraphicModel] = []
     
     public var onValueChanged: (() -> Void )? = nil
     
@@ -125,7 +125,7 @@ public final class UITestMultiple: UIView, UIGraphic {
     }
     
     
-    private func drawGraphic(model: inout UITestMultipleModel){
+    private func drawGraphic(model: inout UIDoubleGraphicModel){
         
         let array: [Int] = model.datasource.getElements()
         
@@ -310,7 +310,7 @@ public final class UITestMultiple: UIView, UIGraphic {
     }
     
     
-    public func setupWithArray(index: Int, model: inout UITestMultipleModel) throws{
+    public func setupWithArray(index: Int, model: inout UIDoubleGraphicModel) throws{
         
         if(model.datasource.getElements().count > defaultDataSourceCount){
             throw RuntimeError("too many start elements")
@@ -328,7 +328,7 @@ public final class UITestMultiple: UIView, UIGraphic {
             throw RuntimeError("too many start elements")
         }
         
-        self.datasource[index] = UITestMultipleModel(positivewColor: UIColor.red, negativeColor: UIColor.orange)
+        self.datasource[index] = UIDoubleGraphicModel(positivewColor: UIColor.red, negativeColor: UIColor.orange)
 
         self.datasource[index].datasource.setup(values)
         self.layer.sublayers = nil

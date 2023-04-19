@@ -66,6 +66,10 @@ public final class UIDoubleGraphic: UIView, UIGraphic {
     
     public var onValueChanged: (() -> Void )? = nil
     
+    private let positiveColor = UIColor.red
+    
+    private let negativeColor = UIColor.orange
+    
     
     public override func prepareForInterfaceBuilder(){
         super.prepareForInterfaceBuilder()
@@ -96,6 +100,7 @@ public final class UIDoubleGraphic: UIView, UIGraphic {
         self.backgroundColor = bC
         self.layer.cornerRadius = 20
         self.layer.masksToBounds = true
+        
         self.setupDefaultData()
     }
     
@@ -104,6 +109,15 @@ public final class UIDoubleGraphic: UIView, UIGraphic {
         let values = [1,4,2,4,3,4,4,6,5,7,6,8,7,8,8,7,9,10]
         var datasource = Queue<Int>()
             datasource.setup(values)
+        
+        var model = UIDoubleGraphicModel(
+            positivewColor: positiveColor,
+            negativeColor: negativeColor
+        )
+        
+        model.datasource = datasource
+        
+        self.datasource.append(model)
     }
     
     public override func draw(_ rect: CGRect) {
@@ -328,8 +342,7 @@ public final class UIDoubleGraphic: UIView, UIGraphic {
             throw RuntimeError("too many start elements")
         }
         
-        self.datasource[index] = UIDoubleGraphicModel(positivewColor: UIColor.red, negativeColor: UIColor.orange)
-
+        self.datasource[index] = UIDoubleGraphicModel(positivewColor: positiveColor, negativeColor: negativeColor)
         self.datasource[index].datasource.setup(values)
         self.layer.sublayers = nil
         self.graphicPath = UIBezierPath()
